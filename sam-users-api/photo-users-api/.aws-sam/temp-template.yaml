@@ -1,0 +1,11 @@
+Resources:
+  Function:
+    Type: AWS::Serverless::Function
+    Properties:
+      Timeout: 300
+      MemorySize: 128
+      Handler: br.com.likwi.photoapp.PostHandler
+      CodeUri: /home/renato/Documents/trabalho/desenvolvimento/aws-serverless-rest-apis-for-java-developers/sam-users-api/photo-users-api
+      Runtime: java11
+      Architectures:
+        - x86_64

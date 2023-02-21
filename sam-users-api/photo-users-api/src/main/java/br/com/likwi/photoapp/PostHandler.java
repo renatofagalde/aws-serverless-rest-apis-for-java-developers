@@ -6,24 +6,22 @@ import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 import com.google.gson.Gson;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 /**
  * Handler for requests to Lambda function.
  */
 public class PostHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
+    public static final String APPLICATION_JSON = "application/json";
+    public static final String USER_ID = "userId";
+
     public APIGatewayProxyResponseEvent handleRequest(final APIGatewayProxyRequestEvent input, final Context context) {
         Map<String, String> headers = new HashMap<>();
-        headers.put("Content-Type", "application/json");
-        headers.put("X-Custom-Header", "application/json");
+        headers.put("Content-Type", APPLICATION_JSON);
+        headers.put("X-Custom-Header", APPLICATION_JSON);
 
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent()
                 .withHeaders(headers);
@@ -31,24 +29,21 @@ public class PostHandler implements RequestHandler<APIGatewayProxyRequestEvent, 
         String inputBody = input.getBody();
         Gson gson = new Gson();
         Map<String, String> usersDeteils = gson.fromJson(inputBody, Map.class);
-        usersDeteils.put("userId", UUID.randomUUID().toString());
+        usersDeteils.put(USER_ID, UUID.randomUUID().toString());
 
         //TODO process user details
 
-        HashMap responseMap = new HashMap();
+        var responseMap = new HashMap();
         responseMap.put("firstName", usersDeteils.get("firtName"));
         responseMap.put("lastName", usersDeteils.get("lastName"));
-        responseMap.put("userId", usersDeteils.get("userId"));
+        responseMap.put(USER_ID, usersDeteils.get(USER_ID));
 
         HashMap<String, String> responseHeaders = new HashMap<>();
-        responseHeaders.put("Content-Type", "application/json");
+        responseHeaders.put("Content-Type", APPLICATION_JSON);
 
         return response
                 .withHeaders(responseHeaders)
                 .withStatusCode(200)
                 .withBody(gson.toJson(usersDeteils, Map.class));
     }
-}
-
-
 }
