@@ -12,16 +12,18 @@ Globals:
     Runtime: java11
     Architectures:
     - x86_64
+    Environment:
+      Variables:
+        PARAM1: VALUE
+        MY_COGNITO_USER_POOL_ID: COGNITO POOL ID
+        MY_COGNITO_CLIENT_APP_SECRET: COGNITO APP SECRET
+        JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
 Resources:
   PostHandlerFunction:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: PostHandlerFunction
       Handler: br.com.likwi.photoapp.PostHandler::handleRequest
-      Environment:
-        Variables:
-          PARAM1: VALUE
-          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
       Events:
         PhotoAppUsers:
           Type: Api
@@ -30,6 +32,19 @@ Resources:
             Method: post
     Metadata:
       SamResourceId: PostHandlerFunction
+  GetHandlerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: GetHandlerFunction
+      Handler: br.com.likwi.photoapp.GetHandler::handleRequest
+      Events:
+        PhotoAppUsers:
+          Type: Api
+          Properties:
+            Path: /users
+            Method: get
+    Metadata:
+      SamResourceId: GetHandlerFunction
 Outputs:
   PhotoAppUsersAPI:
     Description: API Gateway endpoint create new User

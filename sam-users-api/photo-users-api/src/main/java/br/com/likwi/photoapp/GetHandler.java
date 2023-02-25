@@ -9,38 +9,40 @@ import com.google.gson.Gson;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * Handler for requests to Lambda function.
  */
-public class PostHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
+public class GetHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
     public static final String APPLICATION_JSON = "application/json";
     public static final String USER_ID = "userId";
 
+    private static final String MY_COGNITO_USER_POOL_ID = System.getenv("MY_COGNITO_USER_POOL_ID");
+    private static final String MY_COGNITO_CLIENT_APP_SECRET = System.getenv("MY_COGNITO_CLIENT_APP_SECRET");
+
     public APIGatewayProxyResponseEvent handleRequest(final APIGatewayProxyRequestEvent input, final Context context) {
+        Gson gson = new Gson();
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", APPLICATION_JSON);
         headers.put("X-Custom-Header", APPLICATION_JSON);
         LambdaLogger logger = context.getLogger();
 
-        logger.log("Handling PostUser version: "+context.getFunctionVersion());
+        logger.log("Handling GetUser version: "+context.getFunctionVersion());
+        logger.log("query parameters: "+gson.toJson(input.getQueryStringParameters(), Map.class));
+        logger.log("MY_COGNITO_USER_POOL_ID "+ MY_COGNITO_USER_POOL_ID);
+        logger.log("MY_COGNITO_CLIENT_APP_SECRET "+ MY_COGNITO_CLIENT_APP_SECRET);
+
 
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent()
                 .withHeaders(headers);
 
-        String inputBody = input.getBody();
-        Gson gson = new Gson();
-        Map<String, String> usersDeteils = gson.fromJson(inputBody, Map.class);
-        usersDeteils.put(USER_ID, UUID.randomUUID().toString());
-
-        //TODO process user details
 
         var responseMap = new HashMap();
-        responseMap.put("firstName", usersDeteils.get("firstName"));
-        responseMap.put("lastName", usersDeteils.get("lastName"));
-        responseMap.put(USER_ID, usersDeteils.get(USER_ID));
+        responseMap.put("MY_COGNITO_USER_POOL_ID", MY_COGNITO_USER_POOL_ID);
+        responseMap.put("MY_COGNITO_CLIENT_APP_SECRET", MY_COGNITO_CLIENT_APP_SECRET);
+
+
 
         HashMap<String, String> responseHeaders = new HashMap<>();
         responseHeaders.put("Content-Type", APPLICATION_JSON);
@@ -49,6 +51,6 @@ public class PostHandler implements RequestHandler<APIGatewayProxyRequestEvent, 
         return response
                 .withHeaders(responseHeaders)
                 .withStatusCode(200)
-                .withBody(gson.toJson(usersDeteils, Map.class));
+                .withBody(gson.toJson(input.getQueryStringParameters(), Map.class));
     }
 }

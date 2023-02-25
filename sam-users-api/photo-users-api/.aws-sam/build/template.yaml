@@ -4,7 +4,7 @@ Resources:
     Properties:
       Timeout: 300
       MemorySize: 128
-      Handler: br.com.likwi.photoapp.PostHandler
+      Handler: br.com.likwi.photoapp.GetHandler
       CodeUri: Function
       Runtime: java11
       Architectures:
