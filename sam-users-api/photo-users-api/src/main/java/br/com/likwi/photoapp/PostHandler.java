@@ -42,6 +42,8 @@ public class PostHandler implements RequestHandler<APIGatewayProxyRequestEvent, 
         responseMap.put("lastName", usersDeteils.get("lastName"));
         responseMap.put(USER_ID, usersDeteils.get(USER_ID));
 
+
+
         HashMap<String, String> responseHeaders = new HashMap<>();
         responseHeaders.put("Content-Type", APPLICATION_JSON);
         responseHeaders.put("Lambda-Version", context.getFunctionVersion());

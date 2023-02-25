@@ -18,8 +18,8 @@ public class GetHandler implements RequestHandler<APIGatewayProxyRequestEvent, A
     public static final String APPLICATION_JSON = "application/json";
     public static final String USER_ID = "userId";
 
-    private static final String MY_COGNITO_USER_POOL_ID = System.getenv("MY_COGNITO_USER_POOL_ID");
-    private static final String MY_COGNITO_CLIENT_APP_SECRET = System.getenv("MY_COGNITO_CLIENT_APP_SECRET");
+    private static final String MY_COGNITO_USER_POOL_ID = DecrtptKey.decryptKey("MY_COGNITO_USER_POOL_ID");
+    private static final String MY_COGNITO_CLIENT_APP_SECRET = DecrtptKey.decryptKey("MY_COGNITO_CLIENT_APP_SECRET");
 
     public APIGatewayProxyResponseEvent handleRequest(final APIGatewayProxyRequestEvent input, final Context context) {
         Gson gson = new Gson();
@@ -28,10 +28,10 @@ public class GetHandler implements RequestHandler<APIGatewayProxyRequestEvent, A
         headers.put("X-Custom-Header", APPLICATION_JSON);
         LambdaLogger logger = context.getLogger();
 
-        logger.log("Handling GetUser version: "+context.getFunctionVersion());
-        logger.log("query parameters: "+gson.toJson(input.getQueryStringParameters(), Map.class));
-        logger.log("MY_COGNITO_USER_POOL_ID "+ MY_COGNITO_USER_POOL_ID);
-        logger.log("MY_COGNITO_CLIENT_APP_SECRET "+ MY_COGNITO_CLIENT_APP_SECRET);
+        logger.log("Handling GetUser version: " + context.getFunctionVersion());
+        logger.log("query parameters: " + gson.toJson(input.getQueryStringParameters(), Map.class));
+        logger.log("MY_COGNITO_USER_POOL_ID " + MY_COGNITO_USER_POOL_ID);
+        logger.log("MY_COGNITO_CLIENT_APP_SECRET " + MY_COGNITO_CLIENT_APP_SECRET);
 
 
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent()
@@ -41,7 +41,6 @@ public class GetHandler implements RequestHandler<APIGatewayProxyRequestEvent, A
         var responseMap = new HashMap();
         responseMap.put("MY_COGNITO_USER_POOL_ID", MY_COGNITO_USER_POOL_ID);
         responseMap.put("MY_COGNITO_CLIENT_APP_SECRET", MY_COGNITO_CLIENT_APP_SECRET);
-
 
 
         HashMap<String, String> responseHeaders = new HashMap<>();
