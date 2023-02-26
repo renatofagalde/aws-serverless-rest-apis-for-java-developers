@@ -15,8 +15,10 @@ Globals:
       - x86_64
     Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
       Variables:
-        MY_COGNITO_USER_POOL_ID: AQICAHiiudjxVBWfQJGeANfSFp+9p8hJv6kr7O5YYGWYkNAsuwGSsUqNbc98rceAQ9T6Y/tcAAAAbTBrBgkqhkiG9w0BBwagXjBcAgEAMFcGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMFsrt2kJtw32U2aKEAgEQgCq/wNGEfd/24yb/0VZYhYvCsL6X4DMbvQBqLOCximiuc8MJ618ZB1mTEVI=
-        MY_COGNITO_CLIENT_APP_SECRET: AQICAHiiudjxVBWfQJGeANfSFp+9p8hJv6kr7O5YYGWYkNAsuwEFeYNjBFYH93pmd+EP4bZTAAAAcDBuBgkqhkiG9w0BBwagYTBfAgEAMFoGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMdS5fjysnMzAIb/XUAgEQgC1xoJaAdc+vqXKqmT5siyMD/T0+v26QZpv//6vF4t1e+XTwxP3EUM1qqnz+UVU=
+#        MY_COGNITO_USER_POOL_ID: AQICAHiiudjxVBWfQJGeANfSFp+9p8hJv6kr7O5YYGWYkNAsuwGSsUqNbc98rceAQ9T6Y/tcAAAAbTBrBgkqhkiG9w0BBwagXjBcAgEAMFcGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMFsrt2kJtw32U2aKEAgEQgCq/wNGEfd/24yb/0VZYhYvCsL6X4DMbvQBqLOCximiuc8MJ618ZB1mTEVI=
+#        MY_COGNITO_CLIENT_APP_SECRET: AQICAHiiudjxVBWfQJGeANfSFp+9p8hJv6kr7O5YYGWYkNAsuwEFeYNjBFYH93pmd+EP4bZTAAAAcDBuBgkqhkiG9w0BBwagYTBfAgEAMFoGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMdS5fjysnMzAIb/XUAgEQgC1xoJaAdc+vqXKqmT5siyMD/T0+v26QZpv//6vF4t1e+XTwxP3EUM1qqnz+UVU=
+        MY_COGNITO_USER_POOL_ID: 2se8k6h54bq61spuv8ekc7msso # clientId
+        MY_COGNITO_CLIENT_APP_SECRET: iba02fo3au6o3n837ianbb5e9oc1ls2n4tgtoiepo8db89vj4f1 # clientSecret
         JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1 # More info about tiered compilation https://aws.amazon.com/blogs/compute/optimizing-aws-lambda-function-performance-for-java/
 
 Resources:

@@ -1,9 +1,7 @@
 package br.com.likwi.photoapp;
 
-import org.junit.Test;
-
 public class PostHandlerTest {
-  @Test
+//  @Test
   public void successfulResponse() {
 /*    PostHandler postHandler = new PostHandler();
     APIGatewayProxyResponseEvent result = postHandler.handleRequest(null, null);
