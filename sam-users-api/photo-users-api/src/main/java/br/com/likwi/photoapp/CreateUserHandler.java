@@ -42,7 +42,7 @@ public class CreateUserHandler implements RequestHandler<APIGatewayProxyRequestE
         responseHeaders.put("X-Custom-Header", APPLICATION_JSON);
         responseHeaders.put("Lambda-Version", context.getFunctionVersion());
 
-        logger.log("Handling CreateUser version: " + context.getFunctionVersion());
+        logger.log("Handling CreateUser version(2): " + context.getFunctionVersion());
 
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent()
                 .withHeaders(responseHeaders)
@@ -51,23 +51,26 @@ public class CreateUserHandler implements RequestHandler<APIGatewayProxyRequestE
 
         logger.log("Original JSON: " + inputBody);
         JsonObject userDetails = JsonParser.parseString(inputBody).getAsJsonObject();
+        logger.log("user details -> " + userDetails.toString());
 
         try{
 
             JsonObject createUserResult = this.cognitoUserService.createUser(userDetails,
                     this.MY_COGNITO_USER_POOL_ID,
-                    this.MY_COGNITO_CLIENT_APP_SECRET);
+                    this.MY_COGNITO_CLIENT_APP_SECRET,logger);
 
             response.withStatusCode(200);
             response.withBody(responseBody.toJson(createUserResult, JsonObject.class));
 
         }catch (AwsServiceException e){
-            logger.log(e.awsErrorDetails().errorMessage());
-            response.withBody(responseBody.toJson(e, AwsServiceException.class));
+            logger.log("AwsServiceException\t" + e.awsErrorDetails().errorMessage());
+            logger.log("AwsServiceException\t" + e.getLocalizedMessage());
+            response.withBody(responseBody.toJson(e.awsErrorDetails().errorMessage(), String.class));
+            response.withStatusCode(400);
         }
         catch (Exception e){
-            logger.log(e.getLocalizedMessage());
-            response.withBody(responseBody.toJson(e, Exception.class));
+            logger.log("Exception\t" + e.getLocalizedMessage());
+            response.withBody(responseBody.toJson(e.getLocalizedMessage(), String.class));
         }
 
         return response;

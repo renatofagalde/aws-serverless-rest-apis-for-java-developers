@@ -14,8 +14,8 @@ Globals:
     - x86_64
     Environment:
       Variables:
-        MY_COGNITO_USER_POOL_ID: AQICAHiiudjxVBWfQJGeANfSFp+9p8hJv6kr7O5YYGWYkNAsuwGSsUqNbc98rceAQ9T6Y/tcAAAAbTBrBgkqhkiG9w0BBwagXjBcAgEAMFcGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMFsrt2kJtw32U2aKEAgEQgCq/wNGEfd/24yb/0VZYhYvCsL6X4DMbvQBqLOCximiuc8MJ618ZB1mTEVI=
-        MY_COGNITO_CLIENT_APP_SECRET: AQICAHiiudjxVBWfQJGeANfSFp+9p8hJv6kr7O5YYGWYkNAsuwEFeYNjBFYH93pmd+EP4bZTAAAAcDBuBgkqhkiG9w0BBwagYTBfAgEAMFoGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMdS5fjysnMzAIb/XUAgEQgC1xoJaAdc+vqXKqmT5siyMD/T0+v26QZpv//6vF4t1e+XTwxP3EUM1qqnz+UVU=
+        MY_COGNITO_USER_POOL_ID: ech7n8mh3l9bdduqqbmdvksga
+        MY_COGNITO_CLIENT_APP_SECRET: rhc2uiofllva7cejpr8akabeb5e3tsase9l75ko29mi3evja514
         JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
 Resources:
   PostHandlerFunction:
@@ -44,6 +44,19 @@ Resources:
             Method: get
     Metadata:
       SamResourceId: GetHandlerFunction
+  CreateUserHandler:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: CreateUserHandler
+      Handler: br.com.likwi.photoapp.CreateUserHandler::handleRequest
+      Events:
+        PhotoAppUsers:
+          Type: Api
+          Properties:
+            Path: /users/create
+            Method: post
+    Metadata:
+      SamResourceId: CreateUserHandler
 Outputs:
   PhotoAppUsersAPI:
     Description: API Gateway endpoint create new User

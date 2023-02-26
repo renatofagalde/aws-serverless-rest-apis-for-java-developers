@@ -8,6 +8,6 @@ architecture = "x86_64"
 handler = "br.com.likwi.photoapp.PostHandler::handleRequest"
 manifest_hash = ""
 packagetype = "Zip"
-functions = ["PostHandlerFunction", "GetHandlerFunction"]
+functions = ["PostHandlerFunction", "GetHandlerFunction", "CreateUserHandler"]
 
 [layer_build_definitions]
