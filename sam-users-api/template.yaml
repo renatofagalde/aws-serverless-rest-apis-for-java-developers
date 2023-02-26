@@ -9,7 +9,7 @@ Description: >
 Globals:
   Function:
     Timeout: 20
-    MemorySize: 128
+    MemorySize: 256
     Runtime: java11
     Architectures:
       - x86_64

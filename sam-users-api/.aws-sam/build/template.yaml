@@ -8,15 +8,14 @@ Description: 'sam-users-api
 Globals:
   Function:
     Timeout: 20
-    MemorySize: 128
+    MemorySize: 256
     Runtime: java11
     Architectures:
     - x86_64
     Environment:
       Variables:
-        PARAM1: VALUE
-        MY_COGNITO_USER_POOL_ID: COGNITO POOL ID
-        MY_COGNITO_CLIENT_APP_SECRET: COGNITO APP SECRET
+        MY_COGNITO_USER_POOL_ID: AQICAHiiudjxVBWfQJGeANfSFp+9p8hJv6kr7O5YYGWYkNAsuwGSsUqNbc98rceAQ9T6Y/tcAAAAbTBrBgkqhkiG9w0BBwagXjBcAgEAMFcGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMFsrt2kJtw32U2aKEAgEQgCq/wNGEfd/24yb/0VZYhYvCsL6X4DMbvQBqLOCximiuc8MJ618ZB1mTEVI=
+        MY_COGNITO_CLIENT_APP_SECRET: AQICAHiiudjxVBWfQJGeANfSFp+9p8hJv6kr7O5YYGWYkNAsuwEFeYNjBFYH93pmd+EP4bZTAAAAcDBuBgkqhkiG9w0BBwagYTBfAgEAMFoGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMdS5fjysnMzAIb/XUAgEQgC1xoJaAdc+vqXKqmT5siyMD/T0+v26QZpv//6vF4t1e+XTwxP3EUM1qqnz+UVU=
         JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
 Resources:
   PostHandlerFunction:
